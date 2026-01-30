@@ -1,5 +1,8 @@
+//===================Components=========
+import NavBar from "../Components/NavBar";
+
 export default function Home() {
     <>
-        <h1>Home</h1>
+        <NavBar />
     </>
 } 

@@ -1,5 +1,5 @@
-// ====================Routes===================
-import { Routes, Route } from "react-router-dom";
+//==================Routes==================
+import { Routes, Route } from "react-router";
 
 
 //===================Components================

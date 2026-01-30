@@ -6,7 +6,11 @@ function App() {
 
   return (
     <>
+      <div className="w-full h-fit bg-background">
         <AppRouter />
+
+        
+      </div>
     </>
   );
 }
