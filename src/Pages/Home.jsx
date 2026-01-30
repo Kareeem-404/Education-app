@@ -5,13 +5,17 @@
 
 //================Components===========
 
+// import FrontEndSection from "../Components/FrontEndSection/FrontEnd";
+import Input from "../Components/FrontEndSection/input";
 import HeroSection from "../Components/HeroSectio/HeroSection";
 
 export default function Home() {
   return (
     <>
       {/* Hero section with welcome message and call-to-action buttons */}
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <Input />
+      {/* <FrontEndSection /> */}
     </>
   );
 }
