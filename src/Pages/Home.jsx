@@ -1,8 +1,17 @@
-//===================Components=========
-import NavBar from "../Components/NavBar";
+/**
+ * Home page component - The main landing page of the application.
+ * Displays the hero section with introductory content.
+ */
+
+//================Components===========
+
+import HeroSection from "../Components/HeroSectio/HeroSection";
 
 export default function Home() {
+  return (
     <>
-        <NavBar />
+      {/* Hero section with welcome message and call-to-action buttons */}
+      <HeroSection />
     </>
-} 
+  );
+}

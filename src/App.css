@@ -2,5 +2,6 @@
 @theme{
   --color-background:oklch(94.83% 0.005 197.07);
   --color-text:oklch(31.65% 0.028 240.55);
-  --color-cart:oklch(83.06% 0.016 241.81)
+  --color-cart:oklch(83.06% 0.016 241.81);
+  --color-hover-color:oklch(21% 0.034 264.665)
 }
