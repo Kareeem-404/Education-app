@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import RoadmapCanvas from "./components/RoadmapCanvas";
+import CenterInput from "./components/CenterInput";
 
 function App() {
-
-  
-
-  
-  // ------------------style------------------
-
   return (
-    <>
-      
-    </>
+    <div className="h-screen flex justify-center items-center flex-col">
+      <CenterInput />
+      {/* <RoadmapCanvas /> */}
+    </div>
   );
 }
 

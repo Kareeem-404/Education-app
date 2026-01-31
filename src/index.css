@@ -70,3 +70,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.react-flow__node {
+  animation: popIn 0.25s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
