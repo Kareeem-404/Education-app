@@ -37,6 +37,7 @@ export default function HeroSection() {
             {/* Back-End section link */}
             <Link to={'/BackEndStack'} className={LinksStyle}>Back-End</Link>
             <Link to={'/FullStack'} className={LinksStyle}>Full-Stack</Link>
+            <Link to={'/roadmap'} className={"text-center w-45 h-10 bg-text text-background rounded-md cursor-pointer duration-500 hover:duration-500 hover:bg-gray-900 flex items-center justify-center"}>Custom Roadmap</Link>
           </div>
         </div>
       </section>

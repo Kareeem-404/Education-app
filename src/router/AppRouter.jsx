@@ -13,6 +13,7 @@ import LogIn from "../Pages/LogIn";
 import FrontEndSection from "../Pages/FrontEndSection/FrontEnd";
 import FlowBackEnd from "../Pages/BackEndPage/BackEndPage";
 import FlowFullStack from "../Pages/FullStackPage/FullStackPage";
+import Roadmap from "../Components/Roadmap";
 
 export default function AppRouter() {
   return (
@@ -22,10 +23,11 @@ export default function AppRouter() {
         {/* Home page route - displays main content */}
         <Route path="/" element={<Home />} />
         {/* Login page route - handles user authentication */}
-        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/FrontEndStack" element={<FrontEndSection />} />
         <Route path="/BackEndStack" element={<FlowBackEnd />} />
         <Route path="/FullStack" element={<FlowFullStack />} />
+        <Route path="/roadmap" element={<Roadmap />} />
       </Routes>
     </>
   );

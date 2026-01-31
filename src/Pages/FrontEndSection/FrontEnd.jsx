@@ -75,7 +75,7 @@ function Flow() {
           <ReactFlow
             nodes={defaultNodes}
             edges={defaultEdges}
-            fitView
+            // fitView
             // When a node is clicked, fetch AI response for that node
             onNodeClick={(e, node) => HandleAskAi(node.id)}
             style={{ width: "100%", height: "100%", background: "#f1f5f9" }}

@@ -5,16 +5,15 @@
  * - Renders the App component into the DOM
  */
 import { BrowserRouter } from "react-router";
-import { StrictMode } from "react";
+import { ToastContainer } from "react-toastify";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 
 // Render the React app with Router and StrictMode enabled
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+    <App />
+    <ToastContainer />
+  </BrowserRouter>
 );

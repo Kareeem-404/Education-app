@@ -7,7 +7,8 @@ export default function useGemini() {
 
   const cache = useRef({}); // cache لكل node
 
-  const gemini_api_key = import.meta.env.VITE_GEMINI_API_KEY;
+    // Gemini API key (should be moved to environment variables for security)
+  const gemini_api_key = "AIzaSyD44mfMA6MVQ-pkky3ZbLmuJNQoY6CeTwU";
 
   const ai = new GoogleGenAI({
     apiKey: gemini_api_key,
