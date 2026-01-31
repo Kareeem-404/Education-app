@@ -38,7 +38,14 @@ export const initialNodes = [
 
 // Edges افتراضية تربط الـ nodes
 export const initialEdges = [
-  { id: 'e1-2', source: '1', target: '2', type: 'default' },
-  { id: 'e2-3', source: '2', target: '3', type: 'default' },
-  { id: 'e3-4', source: '3', target: '4', type: 'default' },
+  { id: 'Front', source: '0', target: '1', type: 'default' , },
+  { id: 'e1-2', source: '1', target: '2', type: 'default'  , },
+  { id: 'e2-3', source: '2', target: '3', type: 'default'  , },
+  { id: 'e3-4', source: '3', target: '4', type: 'default'  , },
+  { id: 'react', source: '5', target: '3', type: 'default' , },
+  { id: 'veu', source: '4', target: '3', type: 'default'   , },
+  { id: 'bootstrap', source: '6', target: '2', type: 'default'},
+  { id: 'tailwind', source: '7', target: '2', type: 'default' },
+  { id: 'angler', source: '8', target: '3', type: 'default', },
+  { id: 'next', source: '9', target: '3', type: 'default', },
 ];

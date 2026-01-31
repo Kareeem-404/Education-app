@@ -1,68 +1,54 @@
-/**
- * useGemini - Custom React hook for integrating Google's Gemini AI.
- * Handles AI API calls and manages message state.
- *
- * Returns:
- * - response: API response from Gemini
- * - loading: Loading state during API call
- * - sendMSG: Function to send message to Gemini
- * - MSG: Current message state
- * - setMSG: Function to update message state
- */
 import { GoogleGenAI } from "@google/genai";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function useGemini() {
-  // State for user message input
-  const [MSG, setMSG] = useState("");
-  // State for API response
   const [response, setResponse] = useState(null);
-  // Loading state to track API call status
   const [loading, setLoading] = useState(false);
 
-  // Gemini API key (should be moved to environment variables for security)
-  // const gemini_api_key = 
+  const cache = useRef({}); // cache لكل node
+
   const gemini_api_key = import.meta.env.VITE_GEMINI_API_KEY;
 
-
-  // Initialize Gemini AI client
   const ai = new GoogleGenAI({
     apiKey: gemini_api_key,
   });
 
-  /**
-   * sendMSG - Async function to send message to Gemini AI.
-   * Clears previous response, sets loading state, and handles errors.
-   */
-  const sendMSG = async () => {
-    try {
-      setResponse(null); // Clear previous response
-      setLoading(true); // Set loading state
+  const sendMSG = async (text) => {
+    if (!text || loading) return;
 
-      // Make API call to Gemini
+    // لو اتسأل قبل كده رجّع من الكاش
+    if (cache.current[text]) {
+      setResponse(cache.current[text]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setResponse(null);
+
       const responseApi = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [
           {
             role: "user",
-            parts: [{ text: MSG }],
+            parts: [{ text }],
           },
         ],
       });
-      const text = responseApi.candidates?.[0]?.content?.parts?.[0]?.text;
-      // Store the response
-      console.log("Gemini result:", responseApi);
 
-      setResponse(text || "no answer from gemini");
+      const answer =
+        responseApi.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No answer";
+
+      cache.current[text] = answer; // خزّن الرد
+      setResponse(answer);
     } catch (err) {
-      // Log any errors that occur
       console.error("Gemini error:", err);
+      setResponse("⚠️ حصل خطأ أو تم الوصول للحد الأقصى");
     } finally {
-      // Always stop loading after API call completes
       setLoading(false);
     }
   };
 
-  // Return hook values and functions
-  return { response, loading, sendMSG, MSG, setMSG };
+  return { response, loading, sendMSG };
 }

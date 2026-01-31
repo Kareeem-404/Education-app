@@ -9,7 +9,10 @@ import { Routes, Route } from "react-router-dom";
 
 //===================Components================
 import Home from "../Pages/Home";
-import LogIn from "../Pages/LogIn/LogIn";
+import LogIn from "../Pages/LogIn";
+import FrontEndSection from "../Pages/FrontEndSection/FrontEnd";
+import FlowBackEnd from "../Pages/BackEndPage/BackEndPage";
+import FlowFullStack from "../Pages/FullStackPage/FullStackPage";
 
 export default function AppRouter() {
   return (
@@ -20,6 +23,9 @@ export default function AppRouter() {
         <Route path="/" element={<Home />} />
         {/* Login page route - handles user authentication */}
         <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/FrontEndStack" element={<FrontEndSection />} />
+        <Route path="/BackEndStack" element={<FlowBackEnd />} />
+        <Route path="/FullStack" element={<FlowFullStack />} />
       </Routes>
     </>
   );

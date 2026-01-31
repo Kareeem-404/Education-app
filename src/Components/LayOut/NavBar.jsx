@@ -6,7 +6,7 @@
  * - Authentication buttons (LogIn, SignIn)
  */
 //================Router===========
-import { Link } from "react-router";
+import { Link} from "react-router";
 
 export default function NavBar() {
   const ButtonNavStyle =
@@ -14,20 +14,20 @@ export default function NavBar() {
   return (
     <>
       {/* Fixed navigation bar */}
-      <nav className="flex flex-row w-full h-18 items-center justify-between bg-text fixed top-0">
-        <div className="flex flex-row text-background ml-4 w-full ">
+      <nav className="flex flex-row w-full h-18 items-center justify-between bg-text fixed top-0 z-50">
+        <div className="flex flex-row text-background justify-between ml-4 w-full ">
           {/* Logo/Website name - links to home page */}
           <Link to={"/"} className="text-2xl w-55 ">
-            WebSite Name
+            Eduction Flow
           </Link>
 
           {/* Center navigation links */}
-          <div className="flex flex-row gap-4 w-full justify-center text-background items-center">
+          <div className={location.pathname == "/" ? "hidden flex-row gap-4 w-full justify-center text-background items-center": "flex flex-row gap-4 w-full justify-center text-background items-center"}>
             {/* Front-End section link */}
-            <span className={ButtonNavStyle}>Front-End</span>
+            <Link to={'/FrontEndStack'} className={ButtonNavStyle}>Front-End</Link>
             {/* Back-End section link */}
-            <span className={ButtonNavStyle}>Back-End</span>
-            <span className={ButtonNavStyle}>Full-Stack</span>
+            <Link to={'/BackEndStack'} className={ButtonNavStyle}>Back-End</Link>
+            <Link to={'/FullStack'} className={ButtonNavStyle}>Full-Stack</Link>
           </div>
 
           {/* Right-side authentication buttons */}
