@@ -9,6 +9,8 @@
 import { Link } from "react-router";
 
 export default function NavBar() {
+  const ButtonNavStyle =
+    "text-[18px] cursor-pointer hover:underline duration-500 transition hover:duration-500";
   return (
     <>
       {/* Fixed navigation bar */}
@@ -22,13 +24,10 @@ export default function NavBar() {
           {/* Center navigation links */}
           <div className="flex flex-row gap-4 w-full justify-center text-background items-center">
             {/* Front-End section link */}
-            <span className="text-[18px] cursor-pointer hover:underline duration-500 transition hover:duration-500 ">
-              Front-End
-            </span>
+            <span className={ButtonNavStyle}>Front-End</span>
             {/* Back-End section link */}
-            <span className="text-[18px] cursor-pointer hover:underline duration-500 transition hover:duration-500">
-              Back-End
-            </span>
+            <span className={ButtonNavStyle}>Back-End</span>
+            <span className={ButtonNavStyle}>Full-Stack</span>
           </div>
 
           {/* Right-side authentication buttons */}

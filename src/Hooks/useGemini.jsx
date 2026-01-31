@@ -21,7 +21,9 @@ export default function useGemini() {
   const [loading, setLoading] = useState(false);
 
   // Gemini API key (should be moved to environment variables for security)
-  const gemini_api_key = "AIzaSyD-l32bnVTcdDZg8Ki-TuT26AmdpVBgwZQ";
+  // const gemini_api_key = 
+  const gemini_api_key = import.meta.env.VITE_GEMINI_API_KEY;
+
 
   // Initialize Gemini AI client
   const ai = new GoogleGenAI({
@@ -47,9 +49,11 @@ export default function useGemini() {
           },
         ],
       });
-
+      const text = responseApi.candidates?.[0]?.content?.parts?.[0]?.text;
       // Store the response
-      setResponse(responseApi);
+      console.log("Gemini result:", responseApi);
+
+      setResponse(text || "no answer from gemini");
     } catch (err) {
       // Log any errors that occur
       console.error("Gemini error:", err);

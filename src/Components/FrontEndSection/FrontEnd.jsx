@@ -1,13 +1,4 @@
-/**
- * FrontEndSection - Interactive diagram component for visualizing Front-End concepts.
- * Uses ReactFlow library for node-based flow diagrams with Dagre layout algorithm.
- * Features:
- * - Automatic node layout using Dagre algorithm
- * - Layout direction toggle (vertical/horizontal)
- * - Interactive nodes and edges
- */
-
-import Dagre from '@dagrejs/dagre';
+import Dagre from 'dagre';
 import React, { useCallback } from 'react';
 import {
   ReactFlow,
@@ -18,80 +9,68 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 
-import { initialNodes, initialEdges } from './nodes-edges.js';
+import { initialNodes, initialEdges } from './nodes-edges.js'; 
 import '@xyflow/react/dist/style.css';
 
 /**
  * getLayoutedElements - Calculates optimal positions for nodes using Dagre algorithm.
- * @param {Array} nodes - Array of node objects
- * @param {Array} edges - Array of edge objects
- * @param {String} direction - Layout direction ('TB' for top-to-bottom, 'LR' for left-to-right)
- * @returns {Object} Object with layouted nodes and edges
  */
-const getLayoutedElements = (nodes, edges, direction) => {  // Create a new graph for layout calculation
+const getLayoutedElements = (nodes, edges, direction) => {
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
   g.setGraph({ rankdir: direction });
 
-  // Add edges to graph
+  // Add edges
   edges.forEach((edge) => g.setEdge(edge.source, edge.target));
-  
-  // Add nodes to graph with dimensions
+
+  // Add nodes with width/height fallback
   nodes.forEach((node) =>
     g.setNode(node.id, {
-      width: node.measured?.width ?? 0,
-      height: node.measured?.height ?? 0,
+      width: node.measured?.width ?? 100,   // افتراضي 100px
+      height: node.measured?.height ?? 50,  // افتراضي 50px
     })
   );
 
-  // Apply Dagre layout algorithm
+  // Apply Dagre layout
   Dagre.layout(g);
 
-  // Return nodes with calculated positions
-  return {
-    nodes: nodes.map((node) => {
-      const position = g.node(node.id);
-      return {
-        ...node,
-        position: {
-          x: position.x - (node.measured?.width ?? 0) / 2,
-          y: position.y - (node.measured?.height ?? 0) / 2,
-        },
-      };
-    }),
-    edges,
-  };
+  // Return nodes with calculated positions + fallback
+  const safeNodes = nodes.map((node) => {
+    const position = g.node(node.id);
+    return {
+      ...node,
+      position: position
+        ? {
+            x: position.x - (node.measured?.width ?? 100) / 2,
+            y: position.y - (node.measured?.height ?? 50) / 2,
+          }
+        : { x: 0, y: 0 }, // fallback position
+    };
+  });
+
+  return { nodes: safeNodes, edges };
 };
 
 /**
- * LayoutFlow - Main component for the interactive flow diagram.
- * Manages layout state and provides buttons to toggle layout direction.
+ * LayoutFlow component
  */
 export const LayoutFlow = () => {
   const { fitView } = useReactFlow();
 
-  // Initialize nodes and edges with state management
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  /**
-   * onLayout - Callback to update layout direction and recalculate node positions.
-   * @param {String} direction - New layout direction
-   */
   const onLayout = useCallback(
     (direction) => {
-      const { nodes: layoutedNodes, edges: layoutedEdges } =
-        getLayoutedElements(nodes, edges, direction);
+      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges, direction);
 
       setNodes(layoutedNodes);
       setEdges(layoutedEdges);
 
-      // Fit all nodes in viewport after layout update
       requestAnimationFrame(() => fitView());
     },
     [nodes, edges, setNodes, setEdges, fitView]
   );
 
-  // Render ReactFlow with layout control buttons
   return (
     <ReactFlow
       nodes={nodes}
@@ -99,24 +78,31 @@ export const LayoutFlow = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       fitView
+      zoomOnScroll={false}
+      zoomOnPinch={false}
+      zoomOnDoubleClick={false}
+      panOnScroll={false}
+      /* اختياري: تثبيت مستوى الزوم */
+      minZoom={1}
+      maxZoom={1}
+      panOnDrag={false} className='flex  text-text text-3xl '
     >
-      {/* Control panel for layout direction */}
-      <Panel position="top-right">
-        {/* Vertical layout button */}
-        <button onClick={() => onLayout('TB')}>vertical layout</button>
-        {/* Horizontal layout button */}
-        <button onClick={() => onLayout('LR')}>horizontal layout</button>
-      </Panel>
+      <div className='flex left-140'>
+        <span className='ml-135 pt-10'>
+          Front-End Road Map  
+        </span>
+      </div>
     </ReactFlow>
   );
 };
 
 /**
- * FrontEndSection - Wrapper component that provides ReactFlow context.
+ * FrontEndSection wrapper
  */
 export default function FrontEndSection() {
   return (
-    <ReactFlowProvider>
+    <ReactFlowProvider  
+    >
       <LayoutFlow />
     </ReactFlowProvider>
   );
